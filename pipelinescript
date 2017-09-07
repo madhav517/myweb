@@ -9,6 +9,6 @@ node{
     sh "/home/aws/devops/maven350/bin/mvn clean package" 
  }
  stage('Archive'){
-     archiveArtifacts 'target/*.war'
+     archiveArtifacts 'target/myweb.war'
  }
 }
