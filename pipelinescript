@@ -1,0 +1,14 @@
+#! groovy
+node{
+ stage('Source'){
+     git 'https://github.com/madhav517/myweb.git'
+ }
+ 
+ stage('Build'){
+    // def mvnHome = tool 'maven3'
+    sh "/home/aws/devops/maven350/bin/mvn clean package" 
+ }
+ stage('Archive'){
+     archiveArtifacts 'target/*.war'
+ }
+}
