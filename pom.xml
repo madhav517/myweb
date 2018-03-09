@@ -1,12 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>in.javahome</groupId>
+	<groupId>in.java</groupId>
 	<artifactId>myweb</artifactId>
 	<packaging>war</packaging>
 	<version>0.7.0-SNAPSHOT</version>
 	<name>myweb Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+	<properties>
+	    <!-- Sonar -->
+	    <sonar.sources>src/main</sonar.sources>
+	    <sonar.tests>src/test</sonar.tests>
+	    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+	    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+	    <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+	    <sonar.language>java</sonar.language>
+	</properties>
 	<!-- This is comment in XML-->
 	<dependencies>
 		<dependency>
@@ -61,11 +70,29 @@
 	<build>
 		<finalName>myweb</finalName>
 		<plugins>
-		  <plugin>
+		 <!-- <plugin>
 			<groupId>org.jacoco</groupId>
 			<artifactId>jacoco-maven-plugin</artifactId>
-			<!-- <version>0.7.10-SNAPSHOT</version> -->
-		  </plugin>
+			<version>0.7.10-SNAPSHOT</version>
+		  </plugin> 		-->
+		<!-- Sonar-JaCoCo integration plugin -->
+		<plugin>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.7.6.201602180812</version>
+			<configuration>
+				<destFile>${sonar.jacoco.reportPath}</destFile>
+				<append>true</append>
+			</configuration>
+			<executions>
+				<execution>
+					<id>agent</id>
+					<goals>
+						<goal>prepare-agent</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin	
 
 		<plugin>
 		    <groupId>org.codehaus.mojo</groupId>
